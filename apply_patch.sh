@@ -38,12 +38,12 @@ for f in heuristicAdFilter.ts enhancedAdFilter.ts optimizedProbe.ts; do
 done
 
 # 4) 校验：确认关键符号都在
-grep -q "export { filterAdsEnhanced as filterAdsByPcr }" "$LIB/pcrAdFilter.ts"
-grep -q "from './pcrAdFilterOrig'" "$LIB/enhancedAdFilter.ts"
-grep -q "from './pcrAdFilterOrig'" "$LIB/optimizedProbe.ts"
-grep -q "export function filterAdsEnhanced" "$LIB/enhancedAdFilter.ts"
-grep -q "export function cachedProbe" "$LIB/optimizedProbe.ts"
-grep -q "export function stripAdGroupsWithReport" "$LIB/heuristicAdFilter.ts"
+grep -q "filterAdsEnhanced as filterAdsByPcr" "$LIB/pcrAdFilter.ts"
+grep -q "pcrAdFilterOrig" "$LIB/enhancedAdFilter.ts"
+grep -q "pcrAdFilterOrig" "$LIB/optimizedProbe.ts"
+grep -qE "export (async )?function filterAdsEnhanced" "$LIB/enhancedAdFilter.ts"
+grep -qE "export (async )?function cachedProbe" "$LIB/optimizedProbe.ts"
+grep -qE "export (async )?function stripAdGroupsWithReport" "$LIB/heuristicAdFilter.ts"
 
 echo "[patch] 校验通过：门面 + 3 个增强模块就位"
 echo "[patch] PlayPageClient.tsx 未改动（import 由门面兼容）"

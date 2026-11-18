@@ -61,26 +61,30 @@ fork 本仓库 → GitHub Actions 云端：拉官方源码 → 打补丁 → 编
 1. 打开你的仓库 → **Actions** 标签
 2. 左侧选 **Build LunaTV Enhanced (去广告增强版)**
 3. 点 **Run workflow** → 填入版本号（如 `5.1.8`）→ 绿色按钮运行
-4. 等约 5–10 分钟，成功后镜像推送到：
-
+4. 等约 5–10 分钟，成功后镜像推送到（**镜像名固定为小写 `lunatv`，与仓库名大小写无关**）：
 
    ```
-   ghcr.io/你的用户名/你的仓库名:5.1.8
-   ghcr.io/你的用户名/你的仓库名:latest
+   ghcr.io/你的用户名/lunatv:5.1.8
+   ghcr.io/你的用户名/lunatv:latest
    ```
+   例如用户名是 `jshmcz`，镜像就是 `ghcr.io/jshmcz/lunatv:5.1.8`。
 
 ### NAS 拉取并切换（一条命令）
 
-在你的 NAS 上执行（把 `yourname/LunaTV` 换成你的实际仓库名）：
+在你的 NAS 上执行（`YOUR_NAME` 换成你的 GitHub 用户名，如 `jshmcz`）：
 
 ```bash
 cd /vol1/lunatv
-sudo docker pull ghcr.io/yourname/LunaTV:5.1.8
-sudo sed -i "0,/image: .*/s#image: .*#image: ghcr.io/yourname/LunaTV:5.1.8#" docker-compose.yml
+sudo docker pull ghcr.io/YOUR_NAME/lunatv:5.1.8
+sudo sed -i "0,/image: .*/s#image: .*#image: ghcr.io/YOUR_NAME/lunatv:5.1.8#" docker-compose.yml
 sudo docker compose up -d --no-deps --force-recreate lunatv-core
 ```
 
 数据卷、网关、账号、配置全部保留。
+
+> 若你的 GitHub 邮箱设了隐私保护，或仓库是 private，pull 前需先登录：
+> `echo TOKEN | sudo docker login ghcr.io -u YOUR_NAME --password-stdin`
+> （TOKEN 为 GitHub 生成的 `read:packages` 权限 Personal Access Token；公开仓库可跳过。）
 
 ---
 
