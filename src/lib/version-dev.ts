@@ -1,2 +1,2 @@
-const CURRENT_VERSION = '5.1.9.3d5027e';
+const CURRENT_VERSION = '5.1.9.e5d05c3';
 export { CURRENT_VERSION };
